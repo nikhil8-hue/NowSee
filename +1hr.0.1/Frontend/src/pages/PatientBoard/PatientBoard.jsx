@@ -243,7 +243,7 @@ const Dashboard = () => {
                   }}
                 />
                 <Button
-                  onClick={() => navigate("/bookappointment")}
+                  onClick={() => navigate("/videocall")}
                   variant="contained"
                   size="small"
                   endIcon={<ArrowForwardIcon />}
