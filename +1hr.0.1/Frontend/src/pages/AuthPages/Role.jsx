@@ -14,8 +14,10 @@ import {
   HealthAndSafety, MedicationLiquid, Biotech,
   Emergency, Notifications, Drafts, MarkEmailRead, MarkEmailUnread
 } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const ChooseRole = () => {
+  const navigate=useNavigate();
   const floatingIcons = [
     { icon: <MedicalServices fontSize="large" />, position: { top: '10%', left: '10%' }, color: '#e0e0e0' },
     { icon: <MonitorHeart fontSize="large" />, position: { top: '20%', right: '15%' }, color: '#bb9988' },
@@ -121,6 +123,7 @@ const ChooseRole = () => {
                 </Button>
 
                 <Button
+                onClick={() => navigate("/doctors")}
                   variant="contained"
                   size="large"
                   startIcon={<LocalHospitalIcon/>}

@@ -7,6 +7,7 @@ import BookTest from "./pages/PatientBoard/BookTest";
 import MedicalStore from "./pages/PatientBoard/MedicalStore";
 import Appointment from "./pages/PatientBoard/BookAppointment";
 import VideoCall from "./pages/PatientBoard/VideoCall";
+import DoctorBoard from "./pages/DoctorBoard/DoctorBoard";
 import { CssBaseline } from "@mui/material";
 
 
@@ -27,6 +28,8 @@ function App() {
           <Route path ="/medicalstore" element={<MedicalStore/>}/>
           <Route path ="/bookappointment" element={<Appointment/>}/>
           <Route path="/videocall" element={<VideoCall/>}/>
+          {/* Doctor Board Routes  */}
+          <Route path="/doctors" element={<DoctorBoard/>}/>
           {/* Add all other routes that need Nav here */}
         </Route>
       </Routes>
