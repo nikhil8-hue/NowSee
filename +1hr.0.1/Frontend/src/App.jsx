@@ -10,6 +10,7 @@ import VideoCall from "./pages/PatientBoard/VideoCall";
 import DoctorBoard from "./pages/DoctorBoard/DoctorBoard";
 import DoctorCertificationPage from "./pages/DoctorBoard/DocUpload";
 import DoctorDetail from "./pages/DoctorBoard/DocDetail";
+import ClinicDetails from "./pages/DoctorBoard/ClinicDetail";
 import { CssBaseline } from "@mui/material";
 
 
@@ -33,6 +34,7 @@ function App() {
           {/* Doctor Board Routes  */}
           <Route path="/doctor-document" element={<DoctorCertificationPage/>}/>
           <Route path="/doctor-detail" element ={<DoctorDetail/>}/>
+          <Route path="/clinic-details" element={<ClinicDetails/>}/>
           <Route path="/doctors" element={<DoctorBoard/>}/>
           {/* Add all other routes that need Nav here */}
         </Route>

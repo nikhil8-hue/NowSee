@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -17,48 +17,16 @@ import {
   Phone,
   CalendarToday,
   LocationOn,
-  Edit,
-  Save,
-  CameraAlt
+  CameraAlt,
+  Save
 } from '@mui/icons-material';
+import { useNavigate } from 'react-router';
 
-const DoctorDetail = () => {
-  const [editMode, setEditMode] = useState(false);
-  const [profile, setProfile] = useState({
-    name: '',
-    specialty: '',
-    age: '',
-    email: '',
-    phone: '',
-    dob: '',
-    address: ''
-  });
-  const [profileImage, setProfileImage] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProfile(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSave = () => {
-    setEditMode(false);
-    // Add save to backend logic here
-  };
-
+const DoctorDetail= () => {
+  const navigate= useNavigate();
   return (
     <Card sx={{ 
-      maxWidth: '100VW',
+      maxWidth: 800,
       margin: 'auto',
       borderRadius: 3,
       boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
@@ -74,7 +42,7 @@ const DoctorDetail = () => {
       }}>
         <Box sx={{ position: 'relative' }}>
           <Avatar 
-            src={profileImage || '/default-doctor.jpg'}
+            src="/default-doctor.jpg"
             sx={{ 
               width: 80, 
               height: 80, 
@@ -82,92 +50,58 @@ const DoctorDetail = () => {
               border: '3px solid white'
             }}
           />
-          {editMode && (
-            <IconButton 
-              component="label"
-              sx={{
-                position: 'absolute',
-                bottom: 0,
-                right: 20,
-                backgroundColor: 'primary.dark',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: 'primary.dark'
-                }
-              }}
-            >
-              <CameraAlt />
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
-            </IconButton>
-          )}
+          <IconButton 
+            component="label"
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              right: 20,
+              backgroundColor: 'primary.dark',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'primary.dark'
+              }
+            }}
+          >
+            <CameraAlt />
+            <input
+              type="file"
+              hidden
+              accept="image/*"
+            />
+          </IconButton>
         </Box>
         
         <Box sx={{ flexGrow: 1 }}>
-          {editMode ? (
-            <>
-              <TextField
-                name="name"
-                value={profile.name}
-                onChange={handleChange}
-                placeholder="Full Name"
-                variant="standard"
-                fullWidth
-                sx={{ 
-                  mb: 1,
-                  '& .MuiInputBase-input': { color: 'white', fontSize: '1.5rem' },
-                  '& .MuiInput-underline:before': { borderColor: 'rgba(255,255,255,0.5)' }
-                }}
-              />
-              <TextField
-                name="specialty"
-                value={profile.specialty}
-                onChange={handleChange}
-                placeholder="Specialty"
-                variant="standard"
-                fullWidth
-                sx={{ 
-                  '& .MuiInputBase-input': { color: 'white', fontSize: '1.2rem' },
-                  '& .MuiInput-underline:before': { borderColor: 'rgba(255,255,255,0.5)' }
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <Typography variant="h4" fontWeight="bold">
-                {profile.name || "Your Name"}
-              </Typography>
-              <Typography variant="h6">
-                {profile.specialty || "Specialty"}
-              </Typography>
-            </>
-          )}
+          <TextField
+            name="name"
+            placeholder="Full Name"
+            variant="standard"
+            fullWidth
+            sx={{ 
+              mb: 1,
+              '& .MuiInputBase-input': { color: 'white', fontSize: '1.5rem' },
+              '& .MuiInput-underline:before': { borderColor: 'rgba(255,255,255,0.5)' }
+            }}
+          />
+          <TextField
+            name="specialty"
+            placeholder="Specialty"
+            variant="standard"
+            fullWidth
+            sx={{ 
+              '& .MuiInputBase-input': { color: 'white', fontSize: '1.2rem' },
+              '& .MuiInput-underline:before': { borderColor: 'rgba(255,255,255,0.5)' }
+            }}
+          />
         </Box>
-        
-        <IconButton 
-          onClick={() => editMode ? handleSave() : setEditMode(true)}
-          sx={{ 
-            ml: 'auto', 
-            color: 'white',
-            backgroundColor: 'rgba(255,255,255,0.2)',
-            '&:hover': {
-              backgroundColor: 'rgba(255,255,255,0.3)'
-            }
-          }}
-        >
-          {editMode ? <Save /> : <Edit />}
-        </IconButton>
       </Box>
 
       {/* White Content Section */}
       <CardContent sx={{ p: 4 }}>
         <Grid container spacing={3}>
           {/* Personal Details Column */}
-          <Grid size={6} md={6}>
+          <Grid item xs={12} md={6}>
             <Typography variant="h6" fontWeight="bold" gutterBottom sx={{ 
               display: 'flex',
               alignItems: 'center',
@@ -179,30 +113,18 @@ const DoctorDetail = () => {
             
             <Box sx={{ mb: 3 }}>
               <DetailField 
-                editMode={editMode}
                 icon={<CalendarToday />}
                 label="Age"
-                name="age"
-                value={profile.age}
-                onChange={handleChange}
                 placeholder="35"
               />
               <DetailField 
-                editMode={editMode}
                 icon={<CalendarToday />}
                 label="Date of Birth"
-                name="dob"
-                value={profile.dob}
-                onChange={handleChange}
                 placeholder="MM/DD/YYYY"
               />
               <DetailField 
-                editMode={editMode}
                 icon={<LocationOn />}
                 label="Address"
-                name="address"
-                value={profile.address}
-                onChange={handleChange}
                 placeholder="123 Medical Drive, City, State"
                 lastItem
               />
@@ -222,21 +144,13 @@ const DoctorDetail = () => {
             
             <Box sx={{ mb: 3 }}>
               <DetailField 
-                editMode={editMode}
                 icon={<Email />}
                 label="Email"
-                name="email"
-                value={profile.email}
-                onChange={handleChange}
                 placeholder="your.email@example.com"
               />
               <DetailField 
-                editMode={editMode}
                 icon={<Phone />}
                 label="Phone"
-                name="phone"
-                value={profile.phone}
-                onChange={handleChange}
                 placeholder="+1 (123) 456-7890"
                 lastItem
               />
@@ -244,29 +158,40 @@ const DoctorDetail = () => {
           </Grid>
         </Grid>
 
-        {editMode && (
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-            <Button
-              variant="contained"
-              startIcon={<Save />}
-              onClick={handleSave}
-              sx={{
-                borderRadius: 2,
-                px: 3,
-                fontWeight: 'bold'
-              }}
-            >
-              Save Profile
-            </Button>
-          </Box>
-        )}
+        <Divider sx={{ my: 2 }} />
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Button
+            variant="contained"
+            startIcon={<Save />}
+            sx={{
+              borderRadius: 2,
+              px: 3,
+              fontWeight: 'bold'
+            }}
+          >
+            Save Profile
+          </Button>
+          <Button
+            variant="contained"
+            onClick={()=>navigate("/clinic-details")}
+            sx={{
+              borderRadius: 2,
+              px: 3,
+              fontWeight: 'bold',
+              marginLeft:3
+            }}
+          >
+            camon hurry !
+          </Button>
+        </Box>
       </CardContent>
     </Card>
   );
 };
 
 // Reusable editable detail component
-const DetailField = ({ editMode, icon, label, name, value, onChange, placeholder, lastItem = false }) => (
+const DetailField = ({ icon, label, placeholder, lastItem = false }) => (
   <Box sx={{ 
     display: 'flex',
     mb: lastItem ? 0 : 2
@@ -288,21 +213,12 @@ const DetailField = ({ editMode, icon, label, name, value, onChange, placeholder
       <Typography variant="body2" color="text.secondary">
         {label}
       </Typography>
-      {editMode ? (
-        <TextField
-          name={name}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          variant="standard"
-          fullWidth
-          sx={{ mt: 0.5 }}
-        />
-      ) : (
-        <Typography variant="body1" fontWeight="medium" sx={{ minHeight: '24px' }}>
-          {value || <span style={{ color: '#aaa' }}>Not provided</span>}
-        </Typography>
-      )}
+      <TextField
+        placeholder={placeholder}
+        variant="standard"
+        fullWidth
+        sx={{ mt: 0.5 }}
+      />
     </Box>
   </Box>
 );
