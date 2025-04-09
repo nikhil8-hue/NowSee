@@ -123,7 +123,7 @@ const ChooseRole = () => {
                 </Button>
 
                 <Button
-                onClick={() => navigate("/doctors")}
+                onClick={() => navigate("/doctor-document")}
                   variant="contained"
                   size="large"
                   startIcon={<LocalHospitalIcon/>}
