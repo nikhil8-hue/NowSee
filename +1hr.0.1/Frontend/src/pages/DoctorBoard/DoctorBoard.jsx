@@ -82,7 +82,7 @@ const DoctorBoard= () => {
             </CardContent>
           </Card>
         </Grid>
-        
+        {/* {learning fucking api haha} */}
         {/* Upcoming Appointments */}
         <Grid size={3} sm={6} md={3}>
           <Card sx={{ borderRadius: 3, height: '100%' }}>
